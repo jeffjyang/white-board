@@ -7,7 +7,7 @@ var sizecounter;
 
 function setup() {
   ////////////
-    socket = io.connect('localhost:3000');
+    socket = io.connect();
 
     socket.on("syncDrawing", newDrawing);
     socket.on("currentState", initializeBoard);
