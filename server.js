@@ -11,7 +11,9 @@ var server = app.listen(3000, function(){
     console.log("Listening on port 3000");
 });
 
-app.use(express.static('public'));
+app.use(express.static('public'), function(){
+    console.log("Request made");
+});
 
 var socket = require('socket.io');
 var io = socket(server);
@@ -21,7 +23,7 @@ io.sockets.on('connection', newConnection);
 var allDrawings = [];
 
 function newConnection(socket) {
-    console.log(socket.id)
+    console.log(socket.id);
 
     socket.emit("currentState", allDrawings);
 

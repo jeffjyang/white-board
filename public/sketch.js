@@ -10,7 +10,7 @@ function setup() {
     socket = io.connect('localhost:3000');
 
     socket.on("syncDrawing", newDrawing);
-    socket.on("currentState", currentState);
+    socket.on("currentState", initializeBoard);
 
 
     r = random(100, 255); // random color for newly created user
@@ -30,7 +30,7 @@ function setup() {
 }
 
 // initializes the canvas1
-function currentState(data) {
+function initializeBoard(data) {
     for (var i = 0; i < data.length; i ++) {
         stroke(data[i].red, data[i].green, data[i].blue);
         line(data[i].x, data[i].y, data[i].px, data[i].py);
@@ -61,7 +61,8 @@ function mouseDragged() {
         "px": pmouseX,
         "py": pmouseY,
         "weight": slider.value()
-    }
+    };
+
     socket.emit('mouseEvent', data);
 }
 
